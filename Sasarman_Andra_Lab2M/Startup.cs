@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sasarman_Andra_Lab2M.Data;
 using Microsoft.EntityFrameworkCore;
+using Sasarman_Andra_Lab2M.Hubs;
 
 namespace Sasarman_Andra_Lab2M
 {
@@ -28,6 +29,7 @@ namespace Sasarman_Andra_Lab2M
             services.AddControllersWithViews();
             services.AddDbContext<LibraryContext>(options =>
  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,7 @@ namespace Sasarman_Andra_Lab2M
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chathub");
             });
         }
     }
